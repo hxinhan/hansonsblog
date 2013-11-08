@@ -23,7 +23,6 @@
         {% endfor %}
         {% load markup %}
         <h4>{{ blog.content|markdown:'codehilite,fenced_code' }}</h4>
-        <wb:share-button appkey="4241007128" addition="simple" type="button"></wb:share-button>
         <h5><a href="{% url blog_article blog.slug %}">阅读全文 >></a></h5>
       </div>
   {% endfor %}
