@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+
+{% block title %} {{ blog.caption }} {% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1><strong style="color:#009ACD;">{{ blog.caption }}</strong></h1>
+    <h6>{{blog.publish_time|date:"m-d Y"}} , 分类:{{blog.category}}</h6>
+    {% for tag in blog.tags.all %}
+         <span class="label label-info">{{ tag }}</span>
+    {% endfor %}
+
+
+    {% load markup %}
+    <h4>{{ blog.content|markdown:'codehilite,fenced_code' }}</h4>
+
+
+    <wb:share-button appkey="4241007128" addition="simple" type="button"></wb:share-button>
+    {% load duoshuo_tags %}
+
+    {% duoshuo_comments %}
+
+
+
+    <!-- Duoshuo Comment BEGIN -->
+    <!--
+	<div class="ds-thread"></div>
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hansonsblog"};
+	    (function() {
+		    var ds = document.createElement('script');
+		    ds.type = 'text/javascript';ds.async = true;
+		    ds.src = 'http://static.duoshuo.com/embed.js';
+		    ds.charset = 'UTF-8';
+		    (document.getElementsByTagName('head')[0]
+		    || document.getElementsByTagName('body')[0]).appendChild(ds);
+	    })();
+	</script>
+    -->
+    <!-- Duoshuo Comment END -->
+
+</div>
+
+
+
+{% endblock %}
+
+
+

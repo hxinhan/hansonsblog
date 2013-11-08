@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+
+
+
+
+<div class="content">
+
+
+
+  {% for blog in blogs %}
+      <div class="page-header">
+        <h3>
+            <a href="{% url blog_article blog.slug %}">{{ blog.caption }}</a>
+        </h3>
+        <h6>{{blog.publish_time|date:"m-d Y"}} , 分类:{{blog.category}}</h6>
+        {% for tag in blog.tags.all %}
+            <span class="label label-info">{{ tag }}</span>
+        {% endfor %}
+        {% load markup %}
+        <h4>{{ blog.content|markdown:'codehilite,fenced_code' }}</h4>
+        <wb:share-button appkey="4241007128" addition="simple" type="button"></wb:share-button>
+        <h5><a href="{% url blog_article blog.slug %}">阅读全文 >></a></h5>
+      </div>
+  {% endfor %}
+
+
+  {% include "page.html" %}
+
+
+
+
+
+
+</div>
+{% endblock %}

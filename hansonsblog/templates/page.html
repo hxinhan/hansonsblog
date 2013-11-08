@@ -1,0 +1,10 @@
+<ul class="pager">
+        {% if blogs.has_previous %}
+            <!-- <li><a href="?page={{ blogs.previous_page_number }}">上一页</a></li> -->
+            <a href="?page={{ blogs.previous_page_number }}" class="btn btn-sm btn-info">上一页</a>
+        {% endif %}
+        {% if blogs.has_next %}
+            <!-- <li><a href="?page={{ blogs.next_page_number }}">下一页</a></li> -->
+            <a href="?page={{ blogs.next_page_number }}" class="btn btn-sm btn-info">下一页</a>
+        {% endif %}
+</ul>
