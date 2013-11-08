@@ -4,22 +4,12 @@ from django.shortcuts import render_to_response,get_object_or_404
 from sblog.models import Blog,Category,Tag,ClientInfo
 from django.http import Http404
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-import markdown
-
-
-
-#def blog_list(request):
-#    blogs = Blog.objects.all()
-#    categories = Category.objects.all()
-#    tags = Tag.objects.all()
-#    return render_to_response("blog_list.html",{"blogs":blogs,"categories":categories,"tags":tags})
 
 def blog_list(request):
     blog_list = Blog.objects.all()
 
     paginator = Paginator(blog_list,4)
     page = request.GET.get('page')
-
     try:
         blogs = paginator.page(page)
     except PageNotAnInteger:
@@ -29,9 +19,6 @@ def blog_list(request):
 
     categories = Category.objects.all()
     tags = Tag.objects.all()
-
-
-
     # 访客数据采集
     try:
         real_ip = request.META['HTTP_X_FORWARDED_FOR']
@@ -45,9 +32,7 @@ def blog_list(request):
     client_info.ip_address=regip
     client_info.save()
 
-
     return render_to_response("blog_list.html",{"blogs":blogs,"categories":categories,"tags":tags})
-
 
 def blog_show(request,slug):
     try:
@@ -58,14 +43,12 @@ def blog_show(request,slug):
         raise Http404
     return render_to_response("blog_show.html",{"blog":blog,'slug':slug,"categories":categories,"tags":tags})
 
-
 def category(request,slug):
     cut_category = get_object_or_404(Category,slug=slug)
     blogs = cut_category.blog_set.all() #查找符合条件的所有文章  #Blog.objects.filter(category=cut_category)
     categories = Category.objects.all()
     tags = Tag.objects.all()
     return render_to_response("blog_list.html",{"blogs":blogs,"categories":categories,"tags":tags})
-
 
 def tag(request,id=''):
     cut_tag = Tag.objects.get(id=id)
@@ -74,5 +57,3 @@ def tag(request,id=''):
     categories = Category.objects.all()
     return render_to_response("blog_list.html",{"blogs":blogs,"categories":categories,"tags":tags})
 
-def home(request):
-    return render_to_response("footer.html")
